@@ -59,6 +59,16 @@ final class StorageManager {
             taskList.tasks.setValue(true, forKey: "isComplete")
         }
     }
+    
+    func sort(_ taskLists: Results<TaskList>, byKeyPath: String) -> Results<TaskList>{
+        let sortedTaskLists = realm.objects(TaskList.self).sorted(byKeyPath: byKeyPath)
+        return sortedTaskLists
+    }
+//    func sorted(taskLists: Result<TaskList>){
+//        let predicate = NSPredicate(format: "title BEGINSWITH [c]%@", taskLists)
+//        let sortedTaskList = realm.objects(TaskList.self).filter(predicate).sorted(byKeyPath: "title")
+//        
+//    }
 
     // MARK: - Tasks
     func save(_ task: String, withNote note: String, to taskList: TaskList, completion: (Task) -> Void) {
@@ -66,6 +76,25 @@ final class StorageManager {
             let task = Task(value: [task, note])
             taskList.tasks.append(task)
             completion(task)
+        }
+    }
+    
+    func deleteTask (task: Task){
+        write {
+            realm.delete(task)
+        }
+    }
+    
+    func editTask(task:Task, newTitile: String, newNote: String){
+        write {
+            task.title = newTitile
+            task.note = newNote
+        }
+    }
+    
+    func doneTask(task: Task){
+        write {
+            task.setValue(true, forKey: "isComplete")
         }
     }
     
@@ -78,4 +107,6 @@ final class StorageManager {
             print(error)
         }
     }
+    
+    
 }
