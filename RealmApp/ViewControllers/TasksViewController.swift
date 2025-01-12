@@ -78,7 +78,6 @@ final class TasksViewController: UITableViewController {
         let doneAction = UIContextualAction(style: .normal, title: "Done") { [unowned self] _, _, isDone in
             storageManager.doneTask(task: task)
             tableView.reloadData()
-            //tableView.reloadRows(at: [indexPath], with: .automatic)
             isDone(true)
         }
         
