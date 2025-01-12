@@ -64,11 +64,6 @@ final class StorageManager {
         let sortedTaskLists = realm.objects(TaskList.self).sorted(byKeyPath: byKeyPath)
         return sortedTaskLists
     }
-//    func sorted(taskLists: Result<TaskList>){
-//        let predicate = NSPredicate(format: "title BEGINSWITH [c]%@", taskLists)
-//        let sortedTaskList = realm.objects(TaskList.self).filter(predicate).sorted(byKeyPath: "title")
-//        
-//    }
 
     // MARK: - Tasks
     func save(_ task: String, withNote note: String, to taskList: TaskList, completion: (Task) -> Void) {
